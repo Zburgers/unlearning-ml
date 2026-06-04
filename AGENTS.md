@@ -23,17 +23,46 @@ The repo is designed around scoped updates. Each file has a specific job. Do not
 
 ---
 
+## Required Agent Startup Sequence
+
+Whenever the user asks an agent to work in this repo, update the repo, push to GitHub, push to main, continue the learning repo, or work on "unlearning ML", the agent must do this first:
+
+1. Read `README.md` for project purpose.
+2. Read `ROADMAP.md` for long-term direction.
+3. Read `TASKS.md` for current state and active task.
+4. Read `AGENTS.md` for operating rules.
+5. Identify the active `P0` task.
+6. Determine whether the request is:
+   - task-scoped work
+   - tracker/documentation work
+   - template/workflow work
+   - repo hygiene work
+   - experiment/model work
+   - dataset work
+7. Touch only the files required for that scope.
+8. Update trackers before considering the work complete.
+
+Do not start coding or editing random files before checking the tracker state.
+
+---
+
 ## File Responsibilities
 
 | File | Purpose | Update Style |
 |---|---|---|
+| `README.md` | Public project overview | Rare edits when project positioning changes |
 | `ROADMAP.md` | Long-term learning map and phase-level plan | Rare edits only |
 | `TASKS.md` | Global task state, active task checklist, backlog, blockers | Update when task state changes |
 | `PROGRESS.md` | Daily/session progress notes and decisions | Append newest entry at top |
 | `EXPERIMENT_LOG.md` | Compact experiment result rows | Append one row per meaningful run |
-| `MODEL_INDEX.md` | Index of models covered across the repo | Append/update after task completion |
+| `MODEL_INDEX.md` | Index of models covered across the repo | Append/update after model use or task completion |
 | `DATASET_INDEX.md` | Index of datasets used across the repo | Append/update when dataset is introduced |
+| `NOTES.md` | Durable cross-task notes | Append only repo-level observations |
+| `docs/` | General references and reusable guidance | Edit only when improving global guidance |
 | `templates/` | Reusable markdown templates | Edit only when improving workflow |
+| `src/unlearning_ml/` | Reusable code utilities | Add only reusable, task-agnostic helpers |
+| `scripts/` | Repo-level helper scripts | Add only reusable automation |
+| `tests/` | Tests for reusable code | Update when `src/` helpers change |
 | `tasks/<task_id_slug>/README.md` | Task-specific plan and instructions | Update within that task scope |
 | `tasks/<task_id_slug>/report.md` | Final task findings and learning summary | Update after experiments/results |
 | `tasks/<task_id_slug>/outputs/metrics.json` | Machine-readable task metrics | Overwrite only for that task/run |
@@ -42,56 +71,103 @@ Do not duplicate full reports inside `TASKS.md`, `PROGRESS.md`, or `EXPERIMENT_L
 
 ---
 
-## Scope Control Rules
+## Scope Decision Rules
 
-When working on a task, agents must stay inside the requested scope.
+### If the user says: "work on Task XXX"
 
-### Active Task Scope
+Scope is task-specific.
 
-For normal task work, touch only:
+Allowed files:
 
 ```txt
 TASKS.md
 PROGRESS.md
 EXPERIMENT_LOG.md
-tasks/<active_task_slug>/
-DATASET_INDEX.md, only if a new dataset is introduced
-MODEL_INDEX.md, only if a model is completed or meaningfully used
+DATASET_INDEX.md, if a dataset is introduced or status changes
+MODEL_INDEX.md, if a model is implemented or status changes
+tasks/<task_id_slug>/
 ```
 
-Do not edit `ROADMAP.md` unless the user explicitly asks to change the long-term plan.
+Do not touch unrelated task folders. Do not rewrite global roadmap or templates unless explicitly asked.
 
-Do not edit unrelated task folders unless the user explicitly asks.
+### If the user says: "update this and push to main" or "push this to unlearning/github/main"
 
-Do not renumber tasks.
+Agent must infer the smallest safe scope from the changed work.
 
-Do not move tasks between phases unless the user explicitly asks or the current files clearly require correction.
-
-### Template Scope
-
-When changing workflow templates, touch only:
+Before committing/pushing, check:
 
 ```txt
-templates/
-AGENTS.md, if workflow rules changed
-PROGRESS.md, only if progress format changed
-EXPERIMENT_LOG.md, only if experiment format changed
+1. Did task status change? Update TASKS.md.
+2. Was a session completed? Append PROGRESS.md.
+3. Was a model run evaluated? Append EXPERIMENT_LOG.md.
+4. Was a dataset introduced? Update DATASET_INDEX.md.
+5. Was a model implemented/evaluated? Update MODEL_INDEX.md.
+6. Was reusable code changed? Update or add tests.
+7. Was workflow changed? Update AGENTS.md and templates if needed.
+8. Was a task completed? Update task report, TASKS.md, PROGRESS.md, EXPERIMENT_LOG.md, MODEL_INDEX.md, DATASET_INDEX.md.
 ```
 
-Do not rewrite completed task reports just because a template changed.
+Only then commit and push.
 
-### Documentation Scope
+### If the user says: "repo hygiene", "full pass", or "check leftovers"
 
-When updating high-level documentation, touch only the relevant docs file unless a cross-reference must be updated.
+Scope is global documentation/config/template hygiene.
 
-Examples:
+Allowed files:
 
-- Editing roadmap: `ROADMAP.md`
-- Editing task state: `TASKS.md`
-- Editing session progress: `PROGRESS.md`
-- Editing result rows: `EXPERIMENT_LOG.md`
-- Editing a task plan: `tasks/<task_id_slug>/README.md`
-- Editing final findings: `tasks/<task_id_slug>/report.md`
+```txt
+README.md, only if overview is stale
+ROADMAP.md, only if long-term plan is stale
+TASKS.md
+PROGRESS.md
+EXPERIMENT_LOG.md
+DATASET_INDEX.md
+MODEL_INDEX.md
+NOTES.md
+docs/
+templates/
+AGENTS.md
+requirements.txt
+pyproject.toml
+.gitignore
+src/, only for task-agnostic reusable utilities
+scripts/, only for repo-level helpers
+tests/, only for reusable utility tests
+```
+
+Do not edit task-specific README/report files during repo hygiene unless explicitly asked.
+
+### If the user says: "add a dataset"
+
+Update:
+
+```txt
+DATASET_INDEX.md
+data/README.md, only if data handling rules change
+tasks/<active_task_slug>/dataset_card.md, if task-specific
+PROGRESS.md
+TASKS.md, if the active task dataset/status changed
+```
+
+Do not commit large data files by default.
+
+### If the user says: "add a model" or "try this model"
+
+Update:
+
+```txt
+tasks/<active_task_slug>/ code/notebook/report as needed
+EXPERIMENT_LOG.md, after evaluation
+MODEL_INDEX.md, after meaningful implementation/evaluation
+PROGRESS.md
+TASKS.md, if status changes
+```
+
+Do not mark the model as `COVERED` until it has working code, metrics, and documentation.
+
+### If the user says: "complete the task"
+
+Run the task completion workflow. Do not mark `DONE` unless all required artifacts exist.
 
 ---
 
@@ -196,6 +272,7 @@ Update `PROGRESS.md` when:
 - A decision is made.
 - A blocker is discovered or resolved.
 - A task is completed.
+- A repo hygiene pass changes global structure.
 
 ---
 
@@ -230,7 +307,7 @@ Update `EXPERIMENT_LOG.md` when:
 
 ## DATASET_INDEX.md
 
-Update `DATASET_INDEX.md` when a dataset is first introduced.
+Update `DATASET_INDEX.md` when a dataset is first introduced or its status changes.
 
 Each dataset entry should include:
 
@@ -242,6 +319,8 @@ Each dataset entry should include:
 - Target, if applicable
 - License or usage notes
 - Local path or download method
+- Dataset card path, if available
+- Status
 
 Do not add a dataset just because it is mentioned as a future idea. Add it when it is selected for a task.
 
@@ -255,6 +334,8 @@ Each model entry should include:
 - Model family
 - Task IDs where used
 - Data types used on
+- Task types
+- Status
 - Main learning point
 - Notes or limitations
 
@@ -308,12 +389,12 @@ Use these sequences to avoid partial or inconsistent tracking.
 
 ## Starting a Task
 
-1. Read `ROADMAP.md`.
-2. Read `TASKS.md`.
-3. Identify the active `P0` task.
-4. Create or update the task folder.
-5. Update task status in `TASKS.md` from `TODO` to `IN_PROGRESS`.
-6. Add a session entry to `PROGRESS.md`.
+1. Read `README.md`, `ROADMAP.md`, `TASKS.md`, and `AGENTS.md`.
+2. Identify the active `P0` task.
+3. Create or update the task folder.
+4. Update task status in `TASKS.md` from `TODO` to `IN_PROGRESS`.
+5. Add a session entry to `PROGRESS.md`.
+6. Update dataset/model indexes only if new selections were made.
 
 ## Running an Experiment
 
@@ -322,6 +403,7 @@ Use these sequences to avoid partial or inconsistent tracking.
 3. Add one row to `EXPERIMENT_LOG.md`.
 4. Add a short progress entry to `PROGRESS.md` if the result changes direction or status.
 5. Update `TASKS.md` status if needed.
+6. Update `MODEL_INDEX.md` if a model became meaningfully evaluated.
 
 ## Completing a Task
 
@@ -344,37 +426,54 @@ Use these sequences to avoid partial or inconsistent tracking.
 4. Add active task detail only if it becomes the current `P0` task.
 5. Do not create a folder until the task is ready to start unless the user asks for scaffolding.
 
+## Repo Hygiene Pass
+
+1. Inspect global files and templates for empty placeholders.
+2. Fill only global docs/config/templates/reusable utilities.
+3. Do not touch task-specific README/report files unless requested.
+4. Update `PROGRESS.md` with a hygiene pass entry.
+5. Update `TASKS.md` only if tracker state changed.
+6. Keep changes small and explainable.
+
+## Commit and Push Workflow
+
+Before committing:
+
+1. Review changed files.
+2. Confirm changes match the requested scope.
+3. Confirm tracker files are updated if task state changed.
+4. Confirm experiment logs are updated if metrics were produced.
+5. Confirm dataset/model indexes are updated if relevant.
+6. Run or describe relevant tests/checks where possible.
+7. Use a direct commit message.
+8. Push to `main` only if the user asked for GitHub/main/unlearning repo updates or the context clearly implies it.
+
+Commit message examples:
+
+```txt
+Initialize global repo documentation
+Create Task 001 scaffold
+Add Task 001 regression baseline
+Update experiment log for Task 001
+Complete Task 001 regression report
+```
+
 ---
 
 # Agent Behavior
 
 When an AI agent works on this repo:
 
-1. Read `ROADMAP.md` first.
-2. Read `TASKS.md` second.
-3. Read this `AGENTS.md` file third.
-4. Identify the active `P0` task.
-5. Work only on the active task unless explicitly asked otherwise.
-6. Before creating a new task, check the latest task ID.
-7. Do not overwrite existing task work without a clear reason.
-8. Keep generated files small, clear, and reviewable.
-9. Prefer incremental commits with clear messages.
-10. If blocked, update the `Blockers` section in `TASKS.md` and add a `PROGRESS.md` note.
-11. If a task is completed, update `Completed Tasks` in `TASKS.md` and add the result to `EXPERIMENT_LOG.md`.
-12. Never silently change roadmap direction, task numbering, or completion criteria.
-
----
-
-# Commit Message Style
-
-Use direct, descriptive commit messages:
-
-```txt
-Seed Task 001 tracker
-Initialize progress and experiment logs
-Create Task 001 scaffold
-Add Task 001 regression baseline
-Add Task 001 evaluation report
-Update experiment log for Task 001
-Update dataset and model indexes for Task 001
-```
+1. Read `README.md`, `ROADMAP.md`, `TASKS.md`, and `AGENTS.md` first.
+2. Identify the active `P0` task.
+3. Decide the scope using the request and the rules above.
+4. Work only inside that scope unless explicitly asked otherwise.
+5. Before creating a new task, check the latest task ID.
+6. Do not overwrite existing task work without a clear reason.
+7. Keep generated files small, clear, and reviewable.
+8. Prefer incremental commits with clear messages.
+9. If blocked, update the `Blockers` section in `TASKS.md` and add a `PROGRESS.md` note.
+10. If a task is completed, update `Completed Tasks` in `TASKS.md` and add the result to `EXPERIMENT_LOG.md`.
+11. Never silently change roadmap direction, task numbering, or completion criteria.
+12. Never silently commit large raw datasets or model binaries.
+13. When unsure, choose the smallest safe file scope and document the decision in `PROGRESS.md`.
