@@ -1,0 +1,67 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Data policy: keep large/generated data out of Git by default
+data/raw/**
+data/interim/**
+data/processed/**
+!data/README.md
+!data/raw/.gitkeep
+!data/interim/.gitkeep
+!data/processed/.gitkeep
+
+# Model artifacts and generated outputs
+models/checkpoints/**
+models/**/*.pkl
+models/**/*.joblib
+models/**/*.pt
+models/**/*.pth
+models/**/*.h5
+models/**/*.keras
+
+# Task outputs: keep generated heavy outputs local by default
+# Commit selected small metrics/reports intentionally when useful.
+tasks/**/outputs/**/*.csv
+tasks/**/outputs/**/*.parquet
+tasks/**/outputs/**/*.pkl
+tasks/**/outputs/**/*.joblib
+tasks/**/outputs/**/*.pt
+tasks/**/outputs/**/*.pth
+tasks/**/outputs/**/*.h5
+tasks/**/outputs/**/*.keras
+
+# Logs
+*.log
+logs/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
