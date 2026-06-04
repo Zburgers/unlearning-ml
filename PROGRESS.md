@@ -29,7 +29,7 @@ Do not put detailed experiment results here. Put metrics in `EXPERIMENT_LOG.md` 
 | Current Phase | Phase 1 — Linear Models and Basic Tabular ML |
 | Current Sprint | Sprint 1 — Foundations |
 | Active Task | 001 — Linear Regression: California Housing |
-| Current Status | Repo tracking system initialized; Task 001 planned but not started |
+| Current Status | Global repo hygiene pass complete; ready to start Task 001 scaffold |
 | Last Updated | 2026-06-04 |
 
 ---
@@ -64,6 +64,39 @@ Copy this template when adding a new entry.
 ---
 
 ## Progress Entries
+
+## 2026-06-04 — Global Repo Hygiene Pass
+
+### Scope
+- Task: Repo hygiene before Task 001
+- Files touched: `DATASET_INDEX.md`, `MODEL_INDEX.md`, `NOTES.md`, `data/README.md`, `docs/`, `requirements.txt`, `pyproject.toml`, `.gitignore`, `src/unlearning_ml/`, `scripts/`, `tests/`, `AGENTS.md`, `PROGRESS.md`
+
+### Completed
+- Initialized empty global index files for datasets and models.
+- Initialized global notes and data handling documentation.
+- Filled support docs for repo philosophy, ML workflow, metrics, evaluation safety, experiment planning, and reading resources.
+- Added minimal Python project config, requirements, and gitignore policy.
+- Added small reusable utility helpers for paths, seeding, loading, validation, preprocessing, metrics, feature selection, plotting, and basic model factories.
+- Added lightweight tests for reusable data, preprocessing, feature, and metric helpers.
+- Hardened `AGENTS.md` with startup sequence, scoped update rules, dataset/model update rules, and commit/push workflow.
+
+### Learned
+- Several global files were still empty placeholders after skeleton creation.
+- The repo needed explicit file ownership rules so future agents update only the correct scope.
+- Task 001 can now begin without needing more global setup.
+
+### Problems / Blockers
+- No blockers.
+
+### Decisions
+- Do not touch Task 001 README/report files during this global hygiene pass.
+- Keep reusable `src/` helpers minimal and task-agnostic.
+- Keep deep learning, probabilistic, clustering, and ranking modules as placeholders until their phases become active.
+
+### Next
+- Create `tasks/001_linear_regression_california_housing/`.
+- Seed Task 001 README, report stub, outputs folder, and starter implementation files.
+- Update `TASKS.md` from TODO to IN_PROGRESS when Task 001 scaffold begins.
 
 ## 2026-06-04 — Tracking System Initialized
 
