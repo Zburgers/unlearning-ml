@@ -22,7 +22,7 @@ Do not add datasets here just because they are interesting. Add a dataset only w
 
 | Dataset | Source | Data Type | Task Type | Target | Used In | Local Path / Access | License / Usage Notes | Dataset Card | Status |
 |---|---|---|---|---|---|---|---|---|---|
-| California Housing | scikit-learn `fetch_california_housing` | Tabular | Regression | Median house value | 001 | Loaded through scikit-learn cache | Use through scikit-learn; document source in Task 001 | `tasks/001_linear_regression_california_housing/dataset_card.md` | PLANNED |
+| California Housing | scikit-learn `fetch_california_housing` | Tabular | Regression | Median house value (`MedHouseVal`) | 001 | `data/raw/sklearn_cache/cal_housing_py3.pkz` via scikit-learn loader | Use through scikit-learn; original lineage documented in Task 001 dataset card | `tasks/001_linear_regression_california_housing/dataset_card.md` | ACTIVE |
 
 ---
 

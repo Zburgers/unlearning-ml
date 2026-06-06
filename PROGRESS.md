@@ -29,8 +29,8 @@ Do not put detailed experiment results here. Put metrics in `EXPERIMENT_LOG.md` 
 | Current Phase | Phase 1 — Linear Models and Basic Tabular ML |
 | Current Sprint | Sprint 1 — Foundations |
 | Active Task | 001 — Linear Regression: California Housing |
-| Current Status | Global repo hygiene pass complete; ready to start Task 001 scaffold |
-| Last Updated | 2026-06-04 |
+| Current Status | Task 001 scaffold and dataset cache are ready; manual implementation can start |
+| Last Updated | 2026-06-06 |
 
 ---
 
@@ -64,6 +64,36 @@ Copy this template when adding a new entry.
 ---
 
 ## Progress Entries
+
+## 2026-06-06 — Task 001 Learning Scaffold and Dataset Cache
+
+### Scope
+- Task: 001 - Linear Regression on California Housing
+- Files touched: `TASKS.md`, `PROGRESS.md`, `EXPERIMENT_LOG.md`, `DATASET_INDEX.md`, `data/README.md`, `tasks/001_linear_regression_california_housing/`
+
+### Completed
+- Renamed the Task 001 folder to match the tracker slug.
+- Replaced empty placeholders with a guided Task 001 README, dataset card, report stub, notebook starter, and script stubs.
+- Cached the California Housing dataset locally through the repo's prescribed scikit-learn loader.
+- Updated tracker files so Task 001 is ready for manual implementation work.
+
+### Learned
+- The repo already intended to use the scikit-learn loader, which is cleaner than introducing a separate Kaggle copy for this task.
+- The existing Task 001 folder had only empty placeholder files and a mismatched slug.
+- The cached dataset contains 20,640 rows, 8 feature columns, the `MedHouseVal` target, and no missing values in the fetched frame.
+
+### Problems / Blockers
+- No task blocker remains.
+- Initial dataset fetch failed in the sandbox due to DNS/network restrictions and succeeded after an escalated retry.
+
+### Decisions
+- Keep Task 001 focused on understanding the workflow, not filling in finished training code.
+- Keep generated dataset files out of Git and document the repo-local cache path instead.
+- Avoid adding real experiment outputs until you run the task manually.
+
+### Next
+- Open `tasks/001_linear_regression_california_housing/README.md` and work through the stages in order.
+- Start with dataset inspection and a mean baseline before writing the full training path.
 
 ## 2026-06-04 — Global Repo Hygiene Pass
 

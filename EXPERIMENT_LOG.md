@@ -30,7 +30,7 @@ Detailed explanations belong in task-level `report.md` files. Daily/session note
 | Project | Unlearning ML |
 | Active Task | 001 — Linear Regression: California Housing |
 | Current Status | No experiments run yet |
-| Last Updated | 2026-06-04 |
+| Last Updated | 2026-06-06 |
 
 ---
 
@@ -38,7 +38,7 @@ Detailed explanations belong in task-level `report.md` files. Daily/session note
 
 | Date | Task ID | Run ID | Dataset | Data Split / Protocol | Model | Baseline? | Primary Metric | Result | Secondary Metrics | Valid? | Artifact | Notes |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 2026-06-04 | 001 | planned | California Housing | Train/test split | Mean baseline, Linear Regression | Yes | RMSE/R² | TBD | MAE | N/A | `tasks/001_linear_regression_california_housing/outputs/metrics.json` | Task planned; no experiment run yet. |
+| 2026-06-06 | 001 | planned | California Housing | Train/test split | Mean baseline, Linear Regression | Yes | RMSE/R² | TBD | MAE | N/A | `tasks/001_linear_regression_california_housing/outputs/metrics.json` | Task scaffold and dataset cache are ready; no experiment run yet. |
 
 ---
 

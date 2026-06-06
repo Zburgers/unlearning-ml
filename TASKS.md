@@ -21,12 +21,12 @@ For experiment metrics, use `EXPERIMENT_LOG.md`.
 |---|---|
 | Project | Unlearning ML |
 | Tracker Version | v1 |
-| Last Updated | 2026-06-04 |
+| Last Updated | 2026-06-06 |
 | Current Phase | Phase 1 — Linear Models and Basic Tabular ML |
 | Current Sprint | Sprint 1 — Foundations |
 | Active Task | 001 — Linear Regression: California Housing |
 | Next Task | 002 — Ridge/Lasso: California Housing |
-| Overall Status | STARTING |
+| Overall Status | TASK_001_READY |
 
 ---
 
@@ -62,7 +62,7 @@ Use these exact status values so humans and AI agents can update this file consi
 ```txt
 Current task: 001_linear_regression_california_housing
 Main goal: Relearn the complete regression workflow using a simple interpretable model.
-Immediate next action: Create the task folder and add the task README/report/output structure.
+Immediate next action: Work through the guided Task 001 README, starting with dataset inspection and a mean baseline.
 ```
 
 ---
@@ -71,7 +71,7 @@ Immediate next action: Create the task folder and add the task README/report/out
 
 | ID | Task | Phase | Dataset | Model Family | Priority | Status | Next Action |
 |---|---|---|---|---|---|---|---|
-| 001 | Linear Regression: California Housing | Phase 1 | California Housing | Linear Models | P0 | TODO | Create task folder and seed task README |
+| 001 | Linear Regression: California Housing | Phase 1 | California Housing | Linear Models | P0 | IN_PROGRESS | Inspect the dataset, answer the learning prompts, then build the mean baseline |
 
 ---
 
@@ -84,7 +84,7 @@ Immediate next action: Create the task folder and add the task README/report/out
 | Task ID | 001 |
 | Slug | `001_linear_regression_california_housing` |
 | Phase | Phase 1 — Linear Models and Basic Tabular ML |
-| Status | TODO |
+| Status | IN_PROGRESS |
 | Priority | P0 |
 | Data Type | Tabular regression |
 | Dataset | California Housing |
@@ -110,12 +110,14 @@ Learn the full supervised regression workflow using a simple interpretable model
 
 #### Required Checklist
 
-- [ ] Create `tasks/001_linear_regression_california_housing/`
-- [ ] Create `tasks/001_linear_regression_california_housing/README.md`
-- [ ] Create `tasks/001_linear_regression_california_housing/report.md`
-- [ ] Create `tasks/001_linear_regression_california_housing/outputs/`
-- [ ] Load the California Housing dataset
-- [ ] Document dataset source, rows, features, and target
+- [x] Normalize the task folder to `tasks/001_linear_regression_california_housing/`
+- [x] Create a guided task README
+- [x] Create `tasks/001_linear_regression_california_housing/report.md`
+- [x] Create `tasks/001_linear_regression_california_housing/dataset_card.md`
+- [x] Prepare `tasks/001_linear_regression_california_housing/outputs/plots/`
+- [x] Cache the California Housing dataset locally through the scikit-learn loader
+- [ ] Load the California Housing dataset manually and inspect raw rows
+- [ ] Document dataset source, rows, features, and target in your own words
 - [ ] Perform basic EDA
 - [ ] Check missing values and basic distributions
 - [ ] Create train/test split
@@ -129,7 +131,7 @@ Learn the full supervised regression workflow using a simple interpretable model
 - [ ] Save metrics to `outputs/metrics.json`
 - [ ] Save plots under `outputs/plots/`
 - [ ] Write final findings in `report.md`
-- [ ] Update `EXPERIMENT_LOG.md`
+- [ ] Update `EXPERIMENT_LOG.md` with real run results
 - [ ] Update `PROGRESS.md`
 - [ ] Mark task as DONE in this file
 

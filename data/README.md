@@ -71,4 +71,5 @@ Use `.gitkeep` files if empty directories need to be preserved.
 
 ## Task 001 Dataset
 
-Task 001 uses the California Housing dataset loaded through scikit-learn. It does not require manually committing raw data.
+Task 001 uses the California Housing dataset loaded through scikit-learn.
+In this repo it is now cached locally at `data/raw/sklearn_cache/cal_housing_py3.pkz`, and it still does not need to be committed to Git.
